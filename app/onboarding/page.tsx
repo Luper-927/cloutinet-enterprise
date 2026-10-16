@@ -1,17 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 export default function OnboardingPage() {
   const router = useRouter();
+  const [myEmail, setMyEmail] = useState("");
   const [legalName, setLegalName] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [currency, setCurrency] = useState("CNY");
   const [locale, setLocale] = useState("zh-CN");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    createClient()
+      .auth.getUser()
+      .then(({ data }) => setMyEmail(data.user?.email ?? ""));
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -35,13 +42,25 @@ export default function OnboardingPage() {
 
   return (
     <main className="flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow">
-        <h1 className="text-2xl font-bold">Set up your company</h1>
-        <p className="mt-1 text-sm text-slate-500">
-          This creates your workspace. You become the Owner.
-        </p>
+      <div className="w-full max-w-md space-y-4 rounded-2xl bg-white p-8 shadow">
+        <div className="rounded-lg bg-amber-50 p-4 text-sm text-amber-900">
+          <p className="font-semibold">Were you invited to a company?</p>
+          <p className="mt-1">
+            Do not create a new company. Ask your administrator to add you with this email
+            {myEmail ? `: ${myEmail}` : ""}, then refresh this page.
+          </p>
+          <button
+            type="button"
+            onClick={() => router.refresh()}
+            className="mt-2 rounded-lg border border-amber-300 px-3 py-1 text-xs"
+          >
+            I have been added, refresh
+          </button>
+        </div>
 
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+        <h1 className="text-2xl font-bold">Or set up your own company</h1>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
             required
