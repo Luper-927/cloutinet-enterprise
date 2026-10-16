@@ -13,6 +13,8 @@ export default async function DashboardLayout({
     { href: "/dashboard/suppliers", label: "Suppliers", show: access.can("suppliers.read") },
     { href: "/dashboard/customers", label: "Customers", show: access.can("customers.read") },
     { href: "/dashboard/products", label: "Products", show: access.can("products.read") },
+    { href: "/dashboard/team", label: "Team", show: access.can("organization.members.manage") },
+    { href: "/dashboard/audit", label: "Activity log", show: access.can("audit_logs.read") },
   ].filter((l) => l.show);
 
   const upcoming = ["Purchasing", "Inventory", "Shipments"];
