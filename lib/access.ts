@@ -22,7 +22,8 @@ export async function getAccess(): Promise<Access> {
     .from("organization_memberships")
     .select("id, organization_id")
     .eq("user_id", user.id)
-    .eq("status", "active");
+    .eq("status", "active")
+    .order("created_at", { ascending: true });
   const membership = memberships?.[0];
   if (!membership) redirect("/onboarding");
 
