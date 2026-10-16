@@ -18,7 +18,7 @@ export default async function DashboardLayout({
     {
       href: "/dashboard/inventory",
       label: "Inventory",
-      show: access.can("inventory.read"),
+      show: access.can("inventory.read") || access.can("goods_receipts.read"),
     },
     { href: "/dashboard/suppliers", label: "Suppliers", show: access.can("suppliers.read") },
     { href: "/dashboard/customers", label: "Customers", show: access.can("customers.read") },
@@ -26,8 +26,6 @@ export default async function DashboardLayout({
     { href: "/dashboard/team", label: "Team", show: access.can("organization.members.manage") },
     { href: "/dashboard/audit", label: "Activity log", show: access.can("audit_logs.read") },
   ].filter((l) => l.show);
-
-  const upcoming = ["Shipments"];
 
   return (
     <div className="min-h-screen md:flex">
@@ -40,11 +38,7 @@ export default async function DashboardLayout({
               {l.label}
             </Link>
           ))}
-          {upcoming.map((item) => (
-            <span key={item} className="block px-3 py-2 text-slate-500">
-              {item} (coming next)
-            </span>
-          ))}
+          <span className="block px-3 py-2 text-slate-500">Shipments (coming next)</span>
         </nav>
         <form action="/auth/signout" method="post" className="mt-6">
           <button type="submit" className="text-sm text-slate-300 hover:text-white">
