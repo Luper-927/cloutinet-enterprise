@@ -18,7 +18,12 @@ export default async function DashboardLayout({
     {
       href: "/dashboard/inventory",
       label: "Inventory",
-      show: access.can("inventory.read") || access.can("goods_receipts.read"),
+      show: access.can("inventory.read"),
+    },
+    {
+      href: "/dashboard/shipments",
+      label: "Shipments",
+      show: access.can("shipments.read"),
     },
     { href: "/dashboard/suppliers", label: "Suppliers", show: access.can("suppliers.read") },
     { href: "/dashboard/customers", label: "Customers", show: access.can("customers.read") },
@@ -38,7 +43,6 @@ export default async function DashboardLayout({
               {l.label}
             </Link>
           ))}
-          <span className="block px-3 py-2 text-slate-500">Shipments (coming next)</span>
         </nav>
         <form action="/auth/signout" method="post" className="mt-6">
           <button type="submit" className="text-sm text-slate-300 hover:text-white">
