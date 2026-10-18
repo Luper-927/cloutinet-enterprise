@@ -11,6 +11,16 @@ export default async function DashboardLayout({
   const links = [
     { href: "/dashboard", label: "Dashboard", show: true },
     {
+      href: "/dashboard/reports",
+      label: "Overview and reports",
+      show:
+        access.can("reports.export") ||
+        access.can("purchase_requests.read") ||
+        access.can("purchase_orders.read") ||
+        access.can("inventory.read") ||
+        access.can("shipments.read"),
+    },
+    {
       href: "/dashboard/purchasing",
       label: "Purchasing",
       show: access.can("purchase_requests.read") || access.can("purchase_orders.read"),
@@ -49,8 +59,7 @@ export default async function DashboardLayout({
             Sign out
           </button>
         </form>
-      </aside>
-      <main className="min-w-0 flex-1 p-6">{children}</main>
+      </main>
     </div>
   );
 }
