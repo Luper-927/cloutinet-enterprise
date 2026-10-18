@@ -59,7 +59,8 @@ export default async function DashboardLayout({
             Sign out
           </button>
         </form>
-      </main>
+      </aside>
+      <main className="min-w-0 flex-1 p-6">{children}</main>
     </div>
   );
 }
