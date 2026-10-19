@@ -36,6 +36,11 @@ export default async function DashboardLayout({
       show: access.can("shipments.read"),
     },
     { href: "/dashboard/suppliers", label: "Suppliers", show: access.can("suppliers.read") },
+    {
+      href: "/dashboard/suppliers/performance",
+      label: "Supplier performance",
+      show: access.can("suppliers.read") && access.can("purchase_orders.read"),
+    },
     { href: "/dashboard/customers", label: "Customers", show: access.can("customers.read") },
     { href: "/dashboard/products", label: "Products", show: access.can("products.read") },
     { href: "/dashboard/team", label: "Team", show: access.can("organization.members.manage") },
