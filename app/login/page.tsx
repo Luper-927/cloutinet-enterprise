@@ -102,19 +102,27 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <button
-          type="button"
-          onClick={() => {
-            setMode(mode === "signin" ? "signup" : "signin");
-            setErrorMsg(null);
-            setMessage(null);
-          }}
-          className="mt-4 text-sm text-blue-600 hover:underline"
-        >
-          {mode === "signin"
-            ? "New here? Create an account"
-            : "Already have an account? Sign in"}
-        </button>
+        {mode === "signin" && (
+          <a href="/forgot-password" className="mt-3 inline-block text-sm text-slate-500 hover:underline">
+            Forgot your password?
+          </a>
+        )}
+
+        <div>
+          <button
+            type="button"
+            onClick={() => {
+              setMode(mode === "signin" ? "signup" : "signin");
+              setErrorMsg(null);
+              setMessage(null);
+            }}
+            className="mt-3 text-sm text-blue-600 hover:underline"
+          >
+            {mode === "signin"
+              ? "New here? Create an account"
+              : "Already have an account? Sign in"}
+          </button>
+        </div>
       </div>
     </main>
   );
