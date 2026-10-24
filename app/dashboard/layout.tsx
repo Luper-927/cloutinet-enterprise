@@ -1,5 +1,5 @@
 import { getAccess } from "@/lib/access";
-import DashboardNav from "@/components/DashboardNav";
+import DashboardNav from "@/app/components/DashboardNav";
 
 export default async function DashboardLayout({
   children,
